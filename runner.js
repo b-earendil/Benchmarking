@@ -1,3 +1,7 @@
+// Student: Ben Adams
+// Course: CS81 JavaScript
+// Instructor: Professor Seno
+
 // HEAP
 class Heap {
     constructor(numElts) {
@@ -174,7 +178,7 @@ function mergeSort(a, l, h) {
 // BUBBLESORT
 function bubbleSort(a) {
     for(let i = 0; i < a.length-1; i++){
-        for(let j = 0; j < a.length-i-1; i++) {
+        for(let j = 0; j < a.length-i-1; j++) {
             if(a[j] > a[j+1]){
                 // swap
                 let temp = a[j];
@@ -187,45 +191,125 @@ function bubbleSort(a) {
 }
 
 // ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
-function runner() {
-    const inputSizes = [10000, 100000, 1000000, 10000000, 15000000];
-    
-    // HeapSort
-    let heapSortRuntimes = [];
-    for(let i = 0; i< inputSizes.length; i++) {
-        let heap = new Heap();
-        for(let j = 0; j < inputSizes[i]; j++){
-            heap.insert(Math.floor(Math.random()*100000)); // insert random number between 0 and 100,000
-        }
-        let start = Date.now(); // start timer
-        let sorted = heap.sort();
-        let end = Date.now(); // end timer
-        let diff = (end-start)/1000; // time in seconds
-        //console.log(sorted);
-        heapSortRuntimes.push(diff);
-    }
-    console.log('heapSort runtimes', heapSortRuntimes);
+// SCRIPT: RUN AND GRAPH
 
-    // MERGESORT
-    let mergeSortRuntimes = [];
-    for(let i = 0; i < inputSizes.length; i++) {
-        let a = [];
-        for(let j = 0; j < inputSizes[i]; j++){
-            a.push(Math.floor(Math.random()*100000)); // insert random number between 0 and 100,000 
+function runHeapSort(inputSizes) {
+        // HeapSort
+        let heapSortRuntimes = [];
+        for(let i = 0; i< inputSizes.length; i++) {
+            let heap = new Heap();
+            for(let j = 0; j < inputSizes[i]; j++){
+                heap.insert(Math.floor(Math.random()*100000)); // insert random number between 0 and 100,000
+            }
+            let start = Date.now(); // start timer
+            let sorted = heap.sort();
+            let end = Date.now(); // end timer
+            let diff = (end-start)/1000; // time in seconds
+            //console.log(sorted);
+            heapSortRuntimes.push(diff);
         }
-        start = Date.now(); // start timer
-        mergeSort(a, 0, a.length-1);
-        end = Date.now(); // end timer
-        diff = (end-start)/1000; // time in seconds
-        mergeSortRuntimes.push(diff);
+        console.log('heapSort runtimes', heapSortRuntimes);
+        return heapSortRuntimes;    
+}
+
+function runMergeSort(inputSizes){
+        // MERGESORT
+        let mergeSortRuntimes = [];
+        for(let i = 0; i < inputSizes.length; i++) {
+            let a = [];
+            for(let j = 0; j < inputSizes[i]; j++){
+                a.push(Math.floor(Math.random()*100000)); // insert random number between 0 and 100,000 
+            }
+            start = Date.now(); // start timer
+            mergeSort(a, 0, a.length-1);
+            end = Date.now(); // end timer
+            diff = (end-start)/1000; // time in seconds
+            mergeSortRuntimes.push(diff);
+            // console.log(a);
+        }
         console.log('mergeSort runtimes', mergeSortRuntimes);
-        // console.log(a);
-    }
-    console.log('mergeSort runtimes', mergeSortRuntimes);
-
-    // BUBBLESORT
+        return mergeSortRuntimes;
     
 }
 
-runner();
+function runBubbleSort(inputSizes) {
+        // BUBBLESORT
+        let bubbleSortRuntimes = [];
+        for(let i = 0; i < inputSizes.length; i++) {
+            let a = [];
+            for(let j = 0; j < inputSizes[i]; j++){
+                a.push(Math.floor(Math.random()*100000)); // insert random number between 0 and 100,000 
+            }
+            start = Date.now(); // start timer
+            let bsorted = bubbleSort(a);
+            end = Date.now(); // end timer
+            diff = (end-start)/1000; // time in seconds
+            bubbleSortRuntimes.push(diff);
+        }
+        console.log('bubbleSort runtimes', bubbleSortRuntimes);
+        return bubbleSortRuntimes;
+}
+
+function runner(elt) {
+    let heapSortRuntimes, mergeSortRuntimes, bubbleSortRuntimes;
+    if(elt === 'runAll'){
+        const inputSizes = [10000, 100000, 200000];
+        console.log('input sizes', inputSizes.toLocaleString());
+        // HEAPSORT
+        heapSortRuntimes = runHeapSort(inputSizes);
+        // MERGESORT
+        mergeSortRuntimes = runMergeSort(inputSizes);
+        // BUBBLESORT
+        bubbleSortRuntimes = runBubbleSort(inputSizes);
+        // call graphing function
+        grapher(elt, inputSizes, heapSortRuntimes, mergeSortRuntimes, bubbleSortRuntimes);
+    } else {
+        const inputSizes = [10000, 100000, 1000000, 10000000];
+        console.log('input sizes', inputSizes.toLocaleString());
+        // HEAPSORT
+        heapSortRuntimes = runHeapSort(inputSizes);
+        // MERGESORT
+        mergeSortRuntimes = runMergeSort(inputSizes);
+        // call graphing function
+        grapher(elt, inputSizes, heapSortRuntimes, mergeSortRuntimes);
+    }
+
+}
+
+function grapher(elt, inputSizes, heapSortRuntimes, mergeSortRuntimes, bubbleSortRuntimes) {
+    var traceHeapSort = {
+        x: inputSizes,
+        y: heapSortRuntimes, 
+        name:'HeapSort',
+        mode:'lines+markers'
+    };
+    var traceMergeSort = {
+        x: inputSizes,
+        y: mergeSortRuntimes, 
+        name: 'MergeSort',
+        mode:'lines+markers'
+    };
+    if(elt === "runAll") {
+        var traceBubbleSort = {
+            x: inputSizes,
+            y: bubbleSortRuntimes,
+            name: 'BubbleSort',
+            mode:"lines+markers"
+        };
+        var data = [traceHeapSort, traceMergeSort, traceBubbleSort];
+        var layout = {
+            title:"Benchmarking All Algorithms",
+            ticksuffix: "secs"
+        };
+        Plotly.newPlot('plot', data, layout);
+    } else {
+        var data = [traceHeapSort, traceMergeSort];
+        var layout = {
+            title:"Benchmarking Heap and Merge Sort Algorithms",
+            ticksuffix: "secs"
+        };
+        Plotly.newPlot('plot', data, layout);
+    }
+}

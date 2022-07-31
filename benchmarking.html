@@ -1,3 +1,9 @@
+<!-- 
+  Student: Ben Adams
+  Course: CS81 JavaScript
+  Instructor: Professor Seno 
+-->
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -31,7 +37,7 @@
             Heap Sort
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
           <div class="accordion-body">
               Heap sort is a comparison based sorting algorithm that is performed on the heap data structure. A heap is a complete binary tree. We have min-heaps and max-heaps. 
               A min-heap has the property that the root element is the smallest and each node is less than or equal to its children. Using helper functions bubbleUp and bubbleDown 
@@ -84,18 +90,14 @@
       </div>
     </div> <br/><br/>
 
-    <button type="button" class="btn btn-primary">Primary</button>
-    <button type="button" class="btn btn-secondary">Secondary</button>
-    <button type="button" class="btn btn-success">Success</button>
-    <button type="button" class="btn btn-danger">Danger</button>
-    <button type="button" class="btn btn-warning">Warning</button>
-    <button type="button" class="btn btn-info">Info</button>
-    <button type="button" class="btn btn-light">Light</button>
-    <button type="button" class="btn btn-dark">Dark</button>
+    <div id="plot"></div>
 
-    <button type="button" class="btn btn-link">Link</button>
+    <button id="runAll" type="button" onclick="runner(this.id)" class="btn btn-success">Benchmark All Algorithms</button>
+    <button id="runHeapAndMerge" type="button" onclick="runner(this.id)" class="btn btn-success">Benchmark Heap and Merge Sort Algorithms</button>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="runner.js"></script>
   </body>
 </html>
